@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            text-align: center; 
+            padding: 50px; 
+        }
+        h1 { color: #333; }
+    </style>
+</head>
+<body>
+    <h1>Привет, мир!</h1>
+    <p>Это мой первый сайт, размещенный на GitHub Pages!</p>
+</body>
+</html>
