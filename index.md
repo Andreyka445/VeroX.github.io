@@ -6,4 +6,7 @@ title: main page
 
 this is where all VeroX projects will be located
 
-Thanks for the visit1
+# I'm still developing the website, and it's just the beginning...
+
+Thanks for the visit!
+ 
