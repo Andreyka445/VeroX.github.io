@@ -3,3 +3,7 @@ plugins:
 - jekyll-remote-theme # add this line to the plugins list if you already have one
 title: [Welcom to VeroX inc. website]
 description: [There will be located all my project and custom roms and ported roms]
+
+github:
+  zip_url: https://pixeldrain.com/u/C8aA8TQ5
+  another_url: another value
