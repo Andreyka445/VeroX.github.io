@@ -5,225 +5,403 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VeroX inc. - Проекты</title>
     <style>
-        /* cстили */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background-color: #f5f5f5;
-            color: #333;
-            line-height: 1.6;
-        }
-        
-        /* шапка */
-        header {
-            background: linear-gradient(135deg, #2c3e50, #4a6491);
-            color: white;
-            padding: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        
-        .logo {
-            margin-bottom: 10px;
-        }
-        
-        .logo h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
-        
-        .logo p {
-            font-size: 1rem;
-            opacity: 0.8;
-        }
-        
-        /* Основной контент */
-        .container {
-            max-width: 1200px;
-            margin: 30px auto;
-            padding: 0 20px;
-        }
-        
-        /* Сетка карточек */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
-        }
-        
-        /* Карточка проекта */
-        .project-card {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-        }
-        
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-        }
-        
-        .project-image {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .project-info {
-            padding: 20px;
-        }
-        
-        .project-title {
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-            color: #2c3e50;
-        }
-        
-        .project-description {
-            color: #666;
-            font-size: 0.95rem;
-            margin-bottom: 15px;
-        }
-        
-        .project-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 5px;
-            margin-bottom: 15px;
-        }
-        
-        .tag {
-            background: #eef2f7;
-            color: #4a6491;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-        }
-        
-        /* Модальное окно */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.7);
-            z-index: 1000;
-            overflow-y: auto;
-        }
-        
-        .modal-content {
-            background-color: white;
-            margin: 5% auto;
-            width: 90%;
-            max-width: 800px;
-            border-radius: 10px;
-            box-shadow: 0 5px 30px rgba(0,0,0,0.3);
-            animation: modalFade 0.3s;
-        }
-        
-        @keyframes modalFade {
-            from {opacity: 0; transform: translateY(-50px);}
-            to {opacity: 1; transform: translateY(0);}
-        }
-        
-        .modal-header {
-            padding: 20px;
-            border-bottom: 1px solid #eee;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .modal-title {
-            font-size: 1.5rem;
-            color: #2c3e50;
-        }
-        
-        .close-btn {
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #999;
-            transition: color 0.2s;
-        }
-        
-        .close-btn:hover {
-            color: #333;
-        }
-        
-        .modal-body {
-            padding: 20px;
-        }
-        
-        .modal-section {
-            margin-bottom: 25px;
-        }
-        
-        .modal-section h3 {
-            margin-bottom: 10px;
-            color: #2c3e50;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 5px;
-        }
-        
-        .screenshots {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 10px;
-            margin-top: 10px;
-        }
-        
-        .screenshot {
-            width: 100%;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        
-        .download-btn {
-            display: inline-block;
-            background: #4a6491;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: background 0.3s;
-        }
-        
-        .download-btn:hover {
-            background: #3a5479;
-        }
-        
-        /* Подвал */
-        footer {
-            background: #2c3e50;
-            color: white;
-            text-align: center;
-            padding: 20px;
-            margin-top: 50px;
-        }
-        
-        /* Адаптивность */
-        @media (max-width: 768px) {
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .modal-content {
-                width: 95%;
-                margin: 10% auto;
-            }
-        }
+    /* Основные стили */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    color: #ffffff;
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+/* Шапка сайта */
+header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 25px 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.logo {
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+}
+
+.logo h1 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    background: linear-gradient(45deg, #ffffff, #e2e8ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.logo p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    color: #d8c3ff;
+}
+
+/* Основной контент */
+.container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.container h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2.2rem;
+    background: linear-gradient(45deg, #a78bfa, #c4b5fd);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Сетка карточек */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+}
+
+/* Карточка проекта */
+.project-card {
+    background: linear-gradient(145deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.05));
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.project-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+    border-color: rgba(167, 139, 250, 0.3);
+}
+
+.project-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.project-info {
+    padding: 25px;
+}
+
+.project-title {
+    font-size: 1.4rem;
+    margin-bottom: 12px;
+    color: #c4b5fd;
+    font-weight: 600;
+}
+
+.project-description {
+    color: #d1d5db;
+    font-size: 1rem;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.tag {
+    background: linear-gradient(45deg, #7c3aed, #a78bfa);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+/* Модальное окно */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(15, 12, 41, 0.95);
+    z-index: 1000;
+    overflow-y: auto;
+}
+
+.modal-content {
+    background: linear-gradient(145deg, #1a1625, #2d2748);
+    margin: 5% auto;
+    width: 90%;
+    max-width: 800px;
+    border-radius: 15px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    border: 1px solid rgba(167, 139, 250, 0.2);
+    animation: modalFade 0.4s;
+}
+
+@keyframes modalFade {
+    from {opacity: 0; transform: translateY(-60px) scale(0.9);}
+    to {opacity: 1; transform: translateY(0) scale(1);}
+}
+
+.modal-header {
+    padding: 25px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.1));
+}
+
+.modal-title {
+    font-size: 1.7rem;
+    color: #c4b5fd;
+    font-weight: 600;
+}
+
+.close-btn {
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: #a78bfa;
+    transition: color 0.2s;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+}
+
+.close-btn:hover {
+    color: #ffffff;
+    background: rgba(167, 139, 250, 0.3);
+}
+
+.modal-body {
+    padding: 25px;
+}
+
+.modal-section {
+    margin-bottom: 30px;
+}
+
+.modal-section h3 {
+    margin-bottom: 15px;
+    color: #a78bfa;
+    border-bottom: 2px solid rgba(167, 139, 250, 0.3);
+    padding-bottom: 8px;
+    font-size: 1.3rem;
+}
+
+.modal-section ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.modal-section li {
+    padding: 8px 0;
+    padding-left: 25px;
+    position: relative;
+    color: #d1d5db;
+}
+
+.modal-section li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: #a78bfa;
+    font-weight: bold;
+}
+
+.screenshots {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.screenshot {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: transform 0.3s ease;
+}
+
+.screenshot:hover {
+    transform: scale(1.05);
+}
+
+.download-btn {
+    display: inline-block;
+    background: linear-gradient(45deg, #7c3aed, #a78bfa);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+    border: none;
+    cursor: pointer;
+}
+
+.download-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(124, 58, 237, 0.5);
+    background: linear-gradient(45deg, #6d28d9, #8b5cf6);
+}
+
+/* Стили для дополнительных ссылок */
+.download-links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.download-btn.secondary {
+    background: linear-gradient(45deg, #4c1d95, #6d28d9);
+}
+
+.download-btn.secondary:hover {
+    background: linear-gradient(45deg, #5b21b6, #7c3aed);
+}
+
+.additional-downloads {
+    margin-top: 25px;
+}
+
+.additional-downloads h4 {
+    margin: 20px 0 12px 0;
+    color: #c4b5fd;
+    font-size: 1.1rem;
+}
+
+.download-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.download-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 18px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    text-decoration: none;
+    color: #d1d5db;
+    transition: all 0.3s;
+}
+
+.download-item:hover {
+    background: rgba(167, 139, 250, 0.1);
+    border-color: #a78bfa;
+    transform: translateY(-2px);
+}
+
+.doc-links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.doc-link {
+    padding: 10px 15px;
+    background: rgba(139, 92, 246, 0.1);
+    border-radius: 8px;
+    text-decoration: none;
+    color: #c4b5fd;
+    transition: all 0.3s;
+    border: 1px solid rgba(167, 139, 250, 0.2);
+}
+
+.doc-link:hover {
+    background: rgba(167, 139, 250, 0.2);
+    color: #ffffff;
+}
+
+.download-info {
+    font-size: 0.9rem;
+    color: #9ca3af;
+    margin-top: 8px;
+    text-align: center;
+}
+
+.main-download-btn {
+    background: linear-gradient(45deg, #10b981, #34d399);
+    font-size: 1.1rem;
+    padding: 15px 30px;
+}
+
+.main-download-btn:hover {
+    background: linear-gradient(45deg, #059669, #10b981);
+}
+
+/* Подвал */
+footer {
+    background: linear-gradient(135deg, #0f0c29, #1a1625);
+    color: #9ca3af;
+    text-align: center;
+    padding: 30px 20px;
+    margin-top: 60px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .modal-content {
+        width: 95%;
+        margin: 10% auto;
+    }
+    
+    .logo h1 {
+        font-size: 2.2rem;
+    }
+    
+    .container h2 {
+        font-size: 1.8rem;
+    }
+}
     </style>
 </head>
 <body>
