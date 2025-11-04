@@ -407,8 +407,13 @@
     
     <!-- Подвал -->
     <footer>
-        <p>&copy; 2025 VeroX inc. | made by Andreyka445</p>
-    </footer>
+    <p>&copy; <span id="currentYear"></span> VeroX inc. | made by Andreyka445</p>
+</footer>
+
+<script>
+    // Автоматическое обновление года в подвале
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+</script>
     
     <script>
         // Функции для открытия и закрытия модальных окон
