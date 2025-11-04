@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VeroX inc. - Проекты</title>
+    <style>
+        /* Основные стили */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* Шапка сайта */
+        header {
+            background: linear-gradient(135deg, #2c3e50, #4a6491);
+            color: white;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            margin-bottom: 10px;
+        }
+        
+        .logo h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        
+        .logo p {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+        
+        /* Основной контент */
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        
+        /* Сетка карточек */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        
+        /* Карточка проекта */
+        .project-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+        
+        .project-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .project-info {
+            padding: 20px;
+        }
+        
+        .project-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        
+        .project-description {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+        
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 15px;
+        }
+        
+        .tag {
+            background: #eef2f7;
+            color: #4a6491;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+        
+        /* Модальное окно */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 10px;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.3);
+            animation: modalFade 0.3s;
+        }
+        
+        @keyframes modalFade {
+            from {opacity: 0; transform: translateY(-50px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+        
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            color: #2c3e50;
+        }
+        
+        .close-btn {
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #999;
+            transition: color 0.2s;
+        }
+        
+        .close-btn:hover {
+            color: #333;
+        }
+        
+        .modal-body {
+            padding: 20px;
+        }
+        
+        .modal-section {
+            margin-bottom: 25px;
+        }
+        
+        .modal-section h3 {
+            margin-bottom: 10px;
+            color: #2c3e50;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+        
+        .screenshots {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .screenshot {
+            width: 100%;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .download-btn {
+            display: inline-block;
+            background: #4a6491;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        
+        .download-btn:hover {
+            background: #3a5479;
+        }
+        
+        /* Подвал */
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-content {
+                width: 95%;
+                margin: 10% auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Шапка сайта -->
+    <header>
+        <div class="logo">
+            <h1>VeroX inc.</h1>
+            <p>made by Andreyka445</p>
+        </div>
+    </header>
+    
+    <!-- Основной контент -->
+    <main class="container">
+        <h2 style="margin-bottom: 20px; text-align: center;">Мои проекты</h2>
+        
+        <!-- Сетка с карточками проектов -->
+        <div class="projects-grid">
+            <!-- Карточка проекта 1 -->
+            <div class="project-card" onclick="openModal('project1')">
+                <img src="banner" alt="VeroX OS" class="project-image">
+                <div class="project-info">
+                    <h3 class="project-title">RisingOS</h3>
+                    <p class="project-description">disc</p>
+                    <div class="project-tags">
+                        <span class="tag">disc</span>
+                        <span class="tag">disc</span>
+                        <span class="tag">disc</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Карточка проекта 2 -->
+            <div class="project-card" onclick="openModal('project2')">
+                <img src="mistos banner" alt="mistos" class="project-image">
+                <div class="project-info">
+                    <h3 class="project-title">MistOS</h3>
+                    <p class="project-description">mist disc.</p>
+                    <div class="project-tags">
+                        <span class="tag"></span>
+                        <span class="tag"></span>
+                        <span class="tag"></span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Карточка проекта 3 -->
+            <div class="project-card" onclick="openModal('project3')">
+                <img src="evox banner" alt="EvoX" class="project-image">
+                <div class="project-info">
+                    <h3 class="project-title">Evolution X</h3>
+                    <p class="project-description">Evo X disc.</p>
+                    <div class="project-tags">
+                        <span class="tag"></span>
+                        <span class="tag"></span>
+                        <span class="tag"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Модальные окна с детальной информацией о проектах -->
+    
+    <!-- Модальное окно для проекта 1 -->
+    <div id="project1" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">RisingOS Revived</h2>
+                <span class="close-btn" onclick="closeModal('project1')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h3>О проекте</h3>
+                    <p>RisingOS</p>
+                </div>
+                
+                <div class="modal-section">
+                    <h3>Особенности</h3>
+                    <ul>
+                        <li>Улучшенная производительность и отзывчивость</li>
+                        <li>Расширенные настройки интерфейса</li>
+                        <li>Улучшенное управление питанием</li>
+                        <li>Поддержка root-прав</li>
+                        <li>Регулярные обновления безопасности</li>
+                    </ul>
+                </div>
+                
+                <div class="modal-section">
+                    <h3>Скриншоты</h3>
+                    <div class="screenshots">
+                        <img src="https://via.placeholder.com/200x350/4a6491/ffffff?text=Screen+1" alt="Скриншот 1" class="screenshot">
+                        <img src="https://via.placeholder.com/200x350/4a6491/ffffff?text=Screen+2" alt="Скриншот 2" class="screenshot">
+                        <img src="https://via.placeholder.com/200x350/4a6491/ffffff?text=Screen+3" alt="Скриншот 3" class="screenshot">
+                    </div>
+                </div>
+                
+                <div class="modal-section">
+                    <h3>Ссылка для загрузки</h3>
+                    <p>Скачайте последнюю версию RisingOS Revived по ссылке ниже:</p>
+                    <a href="#" class="download-btn">Скачать RisingOS Revived</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Модальное окно для проекта 2 -->
+    <div id="project2" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">MistOS</h2>
+                <span class="close-btn" onclick="closeModal('project2')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h3>О проекте</h3>
+                    <p></p>
+                </div>
+                
+                <div class="modal-section">
+                </div>
+                
+                <div class="modal-section">
+                    <h3>Скриншоты</h3>
+                    <div class="screenshots">
+                        <img src="" alt="Скриншот 1" class="screenshot">
+                        <img src="" alt="Скриншот 2" class="screenshot">
+                        <img src="" alt="Скриншот 3" class="screenshot">
+                    </div>
+                </div>
+                
+                <div class="modal-section">
+                    <h3>Ссылка для загрузки</h3>
+                    <p>Скачайте MistOS по ссылке ниже:</p>
+                    <a href="#" class="download-btn">скачать MistOS</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- окно 3 -->
+    <div id="project3" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Evolution X </h2>
+                <span class="close-btn" onclick="closeModal('project3')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h3>О проекте</h3>
+                    <p></p>Evolution X</p>
+                </div>
+                
+                <div class="modal-section">
+                    <h3>Особенности</h3>
+                    <ul>
+                        <li>Улучшенный интерфейс пользователя</li>
+                        <li>Поддержка шифрования данных</li>
+                        <li>Расширенные возможности резервного копирования</li>
+                        <li>Поддержка установки различных модов</li>
+                        <li>Стабильность и надежность</li>
+                    </ul>
+                </div>
+                
+                <div class="modal-section">
+                    <h3>Скриншоты</h3>
+                    <div class="screenshots">
+                        <img src="" alt="Скриншот 1" class="screenshot">
+                        <img src="" alt="Скриншот 2" class="screenshot">
+                        <img src="" alt="Скриншот 3" class="screenshot">
+                    </div>
+                </div>
+                
+                <div class="modal-section">
+                    <h3>Ссылка для загрузки</h3>
+                    <p>Скачайте последнюю версию Evolution X для TECNO POVA 5:</p>
+                    <a href="#" class="download-btn">Скачать Evolution X</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Подвал -->
+    <footer>
+        <p>&copy; 2023 VeroX inc. | made by Andreyka445</p>
+    </footer>
+    
+    <script>
+        // Функции для открытия и закрытия модальных окон
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+        }
+        
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+        
+        // Закрытие модального окна при клике вне его области
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+  </html>
