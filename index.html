@@ -402,6 +402,55 @@ footer {
         font-size: 1.8rem;
     }
 }
+
+.time-widget {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    text-align: right;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 15px 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    min-width: 180px;
+}
+
+.time {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 5px;
+    font-family: 'Courier New', monospace;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.date {
+    font-size: 0.9rem;
+    color: #d8c3ff;
+    opacity: 0.9;
+}
+
+/* Адаптивность для времени */
+@media (max-width: 768px) {
+    .time-widget {
+        position: relative;
+        top: auto;
+        right: auto;
+        text-align: center;
+        margin-top: 15px;
+        display: inline-block;
+    }
+    
+    header {
+        text-align: center;
+    }
+    
+    .logo {
+        margin-bottom: 15px;
+    }
+}
     </style>
 </head>
 <body>
@@ -411,6 +460,12 @@ footer {
             <h1>VeroX inc.</h1>
             <p>made by Andreyka445</p>
         </div>
+
+         <!-- Виджет времени -->
+    <div class="time-widget">
+        <div class="time" id="currentTime">00:00:00</div>
+        <div class="date" id="currentDate">1 января 2025</div>
+    </div>
     </header>
     
     <!-- Основной контент -->
@@ -510,48 +565,41 @@ footer {
     
     <!-- Модальное окно для проекта 2 -->
     <div id="project2" class="modal">
-        <div class="modal-content">
-          <div class="modal-section">
-              <h3>About ROM<h3>
-              <p>Cherry picked beautiful ROM based on AOSP and Pixel with good quality of features 💙<p>
-          </div>
-
-                <div class="modal-section">
-                    <h3>Feautures</h3>
-                    <ul>
-                        <li>LineageOS based ROM</li>
-                        <li>More custimuzation feautures</li>
-                        <li>GAPPS BUILD</li>
-                        <li>Mahiru 5.1 Kernel included</li>
-                        <li>Signed build</li>
-                <div>     
-            </div> class="modal-header">
-                <h2 class="modal-title">MistOS</h2>
-                <span class="close-btn" onclick="closeModal('project2')">&times;</span>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title">MistOS</h2>
+            <span class="close-btn" onclick="closeModal('project2')">&times;</span>
+        </div>
+        <div class="modal-body">
+            <div class="modal-section">
+                <h3>About ROM</h3>
+                <p>Cherry picked beautiful ROM based on AOSP and Pixel with good quality of features 💙</p>
             </div>
-            <div class="modal-body">
-                <div class="modal-section">
-                    <h3>Cherry picked beautiful ROM based on AOSP and Pixel with good quality of features 💙</h3>
-                    <p></p>
+            
+            <div class="modal-section">
+                <h3>Features</h3>
+                <ul>
+                    <li>LineageOS based ROM</li>
+                    <li>More customization features</li>
+                    <li>GAPPS BUILD</li>
+                    <li>Mahiru 5.1 Kernel included</li>
+                    <li>Signed build</li>
+                </ul>
+            </div>
+            
+            <div class="modal-section">
+                <h3>Screenshots</h3>
+                <div class="screenshots">
+                    <img src="https://i.postimg.cc/FKBLThKs/IMG-20251105-104004-329.jpg" alt="Screenshot 1" class="screenshot">
+                    <img src="https://i.postimg.cc/rmVPNCK6/IMG-20251105-103959-782.jpg" alt="Screenshot 2" class="screenshot">
+                    <img src="https://i.postimg.cc/gj5tpC4L/IMG-20251105-104010-135.jpg" alt="Screenshot 3" class="screenshot">
                 </div>
-                
-                <div class="modal-section">
-                </div>
-                
-                <div class="modal-section">
-                    <h3>Screenshots</h3>
-                    <div class="screenshots">
-                        <img src="https://i.postimg.cc/FKBLThKs/IMG-20251105-104004-329.jpg" alt="Screenshot 1" class="screenshot">
-                        <img src="https://i.postimg.cc/rmVPNCK6/IMG-20251105-103959-782.jpg" alt="Screenshot 2" class="screenshot">
-                        <img src="https://i.postimg.cc/gj5tpC4L/IMG-20251105-104010-135.jpg" alt="Screenshot 3" class="screenshot">
-                    </div>
-                </div>
-                
-                <div class="modal-section">
-                    <h3>Download link</h3>
-                    <p>Download MistOS:</p>
-                    <a href="https://pixeldrain.com/u/C8aA8TQ5" class="download-btn">Download MistOS</a>
-                </div>
+            </div>
+            
+            <div class="modal-section">
+                <h3>Download link</h3>
+                <p>Download MistOS:</p>
+                <a href="https://pixeldrain.com/u/C8aA8TQ5" class="download-btn">Download MistOS</a>
             </div>
         </div>
     </div>
@@ -599,12 +647,12 @@ footer {
     </div>
     
     <!-- Подвал -->
-    <footer>
-    <p>&copy; <span id="currentYear"></span> VeroX inc. | made by Andreyka445</p>
+   <footer style="background: linear-gradient(135deg, #0f0c29, #1a1625); color: #9ca3af; text-align: center; padding: 30px 20px; margin-top: 60px; border-top: 1px solid rgba(255,255,255,0.1);">
+    <p>&copy; <span id="currentYear">2025</span> VeroX inc. | made by Andreyka445</p>
 </footer>
 
 <script>
-    // Автоматическое обновление года в подвале
+    // <!-- без ожидания DOM -->
     document.getElementById('currentYear').textContent = new Date().getFullYear();
 </script>
 
@@ -625,5 +673,37 @@ footer {
             }
         }
     </script>
+    
+    <script>
+    // Функция для обновления времени
+    function updateTime() {
+        const now = new Date();
+        
+        // Форматирование времени
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+        
+        // Форматирование даты
+        const day = now.getDate();
+        const month = now.toLocaleString('ru-RU', { month: 'long' });
+        const year = now.getFullYear();
+        
+        // Обновление элементов
+        document.getElementById('currentTime').textContent = `${hours}:${minutes}:${seconds}`;
+        document.getElementById('currentDate').textContent = `${day} ${month} ${year}`;
+    }
+    
+    // Обновляем время сразу после загрузки страницы
+    document.addEventListener('DOMContentLoaded', function() {
+        updateTime();
+        // Запускаем обновление каждую секунду
+        setInterval(updateTime, 1000);
+        
+        // Обновляем год в подвале
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    });
+</script>
+
 </body>
   </html>
