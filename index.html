@@ -259,10 +259,21 @@ header::before {
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     border: 1px solid rgba(255,255,255,0.1);
     transition: transform 0.3s ease;
+    background: rgba(255,255,255,0.1);
 }
 
 .screenshot:hover {
     transform: scale(1.05);
+}
+
+.screenshot-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 150px;
+    color: #9ca3af;
+    font-size: 0.9rem;
+    text-align: center;
 }
 
 .download-btn {
@@ -277,100 +288,13 @@ header::before {
     box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
     border: none;
     cursor: pointer;
+    text-align: center;
 }
 
 .download-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(124, 58, 237, 0.5);
     background: linear-gradient(45deg, #6d28d9, #8b5cf6);
-}
-
-/* Стили для дополнительных ссылок */
-.download-links {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.download-btn.secondary {
-    background: linear-gradient(45deg, #4c1d95, #6d28d9);
-}
-
-.download-btn.secondary:hover {
-    background: linear-gradient(45deg, #5b21b6, #7c3aed);
-}
-
-.additional-downloads {
-    margin-top: 25px;
-}
-
-.additional-downloads h4 {
-    margin: 20px 0 12px 0;
-    color: #c4b5fd;
-    font-size: 1.1rem;
-}
-
-.download-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 12px;
-    margin-bottom: 20px;
-}
-
-.download-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 12px 18px;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 8px;
-    text-decoration: none;
-    color: #d1d5db;
-    transition: all 0.3s;
-}
-
-.download-item:hover {
-    background: rgba(167, 139, 250, 0.1);
-    border-color: #a78bfa;
-    transform: translateY(-2px);
-}
-
-.doc-links {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.doc-link {
-    padding: 10px 15px;
-    background: rgba(139, 92, 246, 0.1);
-    border-radius: 8px;
-    text-decoration: none;
-    color: #c4b5fd;
-    transition: all 0.3s;
-    border: 1px solid rgba(167, 139, 250, 0.2);
-}
-
-.doc-link:hover {
-    background: rgba(167, 139, 250, 0.2);
-    color: #ffffff;
-}
-
-.download-info {
-    font-size: 0.9rem;
-    color: #9ca3af;
-    margin-top: 8px;
-    text-align: center;
-}
-
-.main-download-btn {
-    background: linear-gradient(45deg, #10b981, #34d399);
-    font-size: 1.1rem;
-    padding: 15px 30px;
-}
-
-.main-download-btn:hover {
-    background: linear-gradient(45deg, #059669, #10b981);
 }
 
 /* Подвал */
@@ -461,16 +385,16 @@ footer {
             <p>made by Andreyka445</p>
         </div>
 
-         <!-- Виджет времени -->
-    <div class="time-widget">
-        <div class="time" id="currentTime">00:00:00</div>
-        <div class="date" id="currentDate">1 января 2025</div>
-    </div>
+        <!-- Виджет времени -->
+        <div class="time-widget">
+            <div class="time" id="currentTime">00:00:00</div>
+            <div class="date" id="currentDate">1 января 2025</div>
+        </div>
     </header>
     
     <!-- Основной контент -->
     <main class="container">
-        <h2 style="margin-bottom: 20px; text-align: center;">TECNO POVA 5 CUSTOM ROMS</h2>
+        <h2>TECNO POVA 5 CUSTOM ROMS</h2>
         
         <!-- Сетка с карточками проектов -->
         <div class="projects-grid">
@@ -490,11 +414,10 @@ footer {
             
             <!-- Карточка проекта 2 -->
             <div class="project-card" onclick="openModal('project2')">
-                <img src="https://avatars.githubusercontent.com/u/140271839?s=200&v=4" alt="mistos" class="project-image">
+                <img src="https://avatars.githubusercontent.com/u/140271839?s=200&v=4" alt="MistOS" class="project-image">
                 <div class="project-info">
                     <h3 class="project-title">MistOS</h3>
-                    <p class="project-description">Cherry picked beautiful ROM based on AOSP and Pixel with good quality of features 💙
-</p>
+                    <p class="project-description">Cherry picked beautiful ROM based on AOSP and Pixel with good quality of features 💙</p>
                     <div class="project-tags">
                         <span class="tag">#Rozen</span>
                         <span class="tag">#Pova5</span>
@@ -503,12 +426,12 @@ footer {
                 </div>
             </div>
             
-            <!-- Карточка проекта 3 -->
+            <!-- Карточка проекта 3 - ИСПРАВЛЕНА -->
             <div class="project-card" onclick="openModal('project3')">
-                <img src="https://avatars.githubusercontent.com/u/165590896?s=200&v=4" alt="EvoX" class="project-image">
+                <img src="https://avatars.githubusercontent.com/u/165590896?s=200&v=4" alt="Evolution X" class="project-image">
                 <div class="project-info">
                     <h3 class="project-title">Evolution X</h3>
-                    <p class="project-description">Android ROM that aims to replicate the Google Pixel experience, with added customization. Based on the @LineageOS Project.</p>
+                    <p class="project-description">Android ROM that aims to replicate the Google Pixel experience, with added customization. Based on the LineageOS Project.</p>
                     <div class="project-tags">
                         <span class="tag">#Pova5</span>
                         <span class="tag">#Rozen</span>
@@ -519,7 +442,7 @@ footer {
         </div>
     </main>
     
-    <!-- Модальные окна с детальной информацией о проектах -->
+    <!-- Модальные окна -->
     
     <!-- Модальное окно для проекта 1 -->
     <div id="project1" class="modal">
@@ -535,10 +458,10 @@ footer {
                 </div>
                 
                 <div class="modal-section">
-                    <h3>Feautures</h3>
+                    <h3>Features</h3>
                     <ul>
                         <li>LineageOS based ROM</li>
-                        <li>More custimuzation feautures</li>
+                        <li>More customization features</li>
                         <li>GAPPS BUILD</li>
                         <li>Mahiru 5.1 Kernel included</li>
                         <li>Signed build</li>
@@ -555,7 +478,7 @@ footer {
                 </div>
                 
                 <div class="modal-section">
-                    <h3>Download link</h3>
+                    <h3>Download</h3>
                     <p>Download the latest RisingOS - Revived for TECNO POVA 5:</p>
                     <a href="https://pixeldrain.com/u/n1aWKvRe" class="download-btn">Download RisingOS - Revived</a>
                 </div>
@@ -565,69 +488,65 @@ footer {
     
     <!-- Модальное окно для проекта 2 -->
     <div id="project2" class="modal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2 class="modal-title">MistOS</h2>
-            <span class="close-btn" onclick="closeModal('project2')">&times;</span>
-        </div>
-        <div class="modal-body">
-            <div class="modal-section">
-                <h3>About ROM</h3>
-                <p>Cherry picked beautiful ROM based on AOSP and Pixel with good quality of features 💙</p>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">MistOS</h2>
+                <span class="close-btn" onclick="closeModal('project2')">&times;</span>
             </div>
-            
-            <div class="modal-section">
-                <h3>Features</h3>
-                <ul>
-                    <li>LineageOS based ROM</li>
-                    <li>More customization features</li>
-                    <li>GAPPS BUILD</li>
-                    <li>Mahiru 5.1 Kernel included</li>
-                    <li>Signed build</li>
-                </ul>
-            </div>
-            
-            <div class="modal-section">
-                <h3>Screenshots</h3>
-                <div class="screenshots">
-                    <img src="https://i.postimg.cc/FKBLThKs/IMG-20251105-104004-329.jpg" alt="Screenshot 1" class="screenshot">
-                    <img src="https://i.postimg.cc/rmVPNCK6/IMG-20251105-103959-782.jpg" alt="Screenshot 2" class="screenshot">
-                    <img src="https://i.postimg.cc/gj5tpC4L/IMG-20251105-104010-135.jpg" alt="Screenshot 3" class="screenshot">
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h3>About ROM</h3>
+                    <p>Cherry picked beautiful ROM based on AOSP and Pixel with good quality of features 💙</p>
                 </div>
-            </div>
-            
-            <div class="modal-section">
-                <h3>Download link</h3>
-                <p>Download MistOS:</p>
-                <a href="https://pixeldrain.com/u/C8aA8TQ5" class="download-btn">Download MistOS</a>
+                
+                <div class="modal-section">
+                    <h3>Features</h3>
+                    <ul>
+                        <li>LineageOS based ROM</li>
+                        <li>More customization features</li>
+                        <li>GAPPS BUILD</li>
+                        <li>Mahiru 5.1 Kernel included</li>
+                        <li>Signed build</li>
+                    </ul>
+                </div>
+                
+                <div class="modal-section">
+                    <h3>Screenshots</h3>
+                    <div class="screenshots">
+                        <img src="https://i.postimg.cc/FKBLThKs/IMG-20251105-104004-329.jpg" alt="Screenshot 1" class="screenshot">
+                        <img src="https://i.postimg.cc/rmVPNCK6/IMG-20251105-103959-782.jpg" alt="Screenshot 2" class="screenshot">
+                        <img src="https://i.postimg.cc/gj5tpC4L/IMG-20251105-104010-135.jpg" alt="Screenshot 3" class="screenshot">
+                    </div>
+                </div>
+                
+                <div class="modal-section">
+                    <h3>Download</h3>
+                    <p>Download MistOS:</p>
+                    <a href="https://pixeldrain.com/u/C8aA8TQ5" class="download-btn">Download MistOS</a>
+                </div>
             </div>
         </div>
     </div>
     
-    <!-- окно 3 -->
+    <!-- Модальное окно для проекта 3 - ИСПРАВЛЕНО -->
     <div id="project3" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title">Evolution X </h2>
+                <h2 class="modal-title">Evolution X</h2>
                 <span class="close-btn" onclick="closeModal('project3')">&times;</span>
             </div>
             <div class="modal-body">
                 <div class="modal-section">
                     <h3>About ROM</h3>
-                    <p></p>Evolution X is a custom Android ROM that aims to replicate the Google Pixel experience, with added customization. Based on the LineageOS Project.
-
-Pixel exclusive features
-Additional customization
-Frequent releases
-Community technical support
-Support for numerous Android devices</p>
+                    <p>Evolution X is a custom Android ROM that aims to replicate the Google Pixel experience, with added customization. Based on the LineageOS Project.<br>
+                    Pixel exclusive features, additional customization, frequent releases, community technical support.</p>
                 </div>
                 
                 <div class="modal-section">
-                    <h3>Feautures</h3>
+                    <h3>Features</h3>
                     <ul>
                         <li>LineageOS based ROM</li>
-                        <li>Pixel Feautures</li>
+                        <li>Pixel Features</li>
                         <li>Mahiru kernel 5.1 included</li>
                         <li>Signed build</li>
                         <li>JDSP and Dolby included</li>
@@ -635,81 +554,87 @@ Support for numerous Android devices</p>
                 </div>
                 
                 <div class="modal-section">
-                    <h3>Скриншоты</h3>
+                    <h3>Screenshots</h3>
                     <div class="screenshots">
-                        <img src="" alt="screen 1" class="screenshot">
-                        <img src="" alt="screen 2" class="screenshot">
-                        <img src="" alt="screen 3" class="screenshot">
+                        <div class="screenshot screenshot-placeholder">Скриншот 1<br>Скоро появится</div>
+                        <div class="screenshot screenshot-placeholder">Скриншот 2<br>Скоро появится</div>
+                        <div class="screenshot screenshot-placeholder">Скриншот 3<br>Скоро появится</div>
                     </div>
                 </div>
                 
                 <div class="modal-section">
-                    <h3>Download link</h3>
-                    <p>Download latest Evolution X here:</p>
-                    <a href="#" class="download-btn">Download Evolution X</a>
+                    <h3>Download</h3>
+                    <p>Сборка в процессе. Скоро будет доступна для скачивания:</p>
+                    <a href="#" class="download-btn" onclick="alert('Сборка Evolution X в процессе!
+Скоро будет доступна для скачивания.'); return false;">Скоро доступно</a>
                 </div>
             </div>
         </div>
     </div>
     
     <!-- Подвал -->
-   <footer style="background: linear-gradient(135deg, #0f0c29, #1a1625); color: #9ca3af; text-align: center; padding: 30px 20px; margin-top: 60px; border-top: 1px solid rgba(255,255,255,0.1);">
-    <p>&copy; <span id="currentYear">2025</span> VeroX inc. | made by Andreyka445</p>
-</footer>
-
-<script>
-    // <!-- без ожидания DOM -->
-    document.getElementById('currentYear').textContent = new Date().getFullYear();
-</script>
+    <footer>
+        <p>&copy; <span id="currentYear">2025</span> VeroX inc. | made by Andreyka445</p>
+    </footer>
 
     <script>
-        // Функции для открытия и закрытия модальных окон
+        // Обновление года в подвале
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        
+        // Функции для модальных окон
         function openModal(modalId) {
             document.getElementById(modalId).style.display = 'block';
+            document.body.style.overflow = 'hidden';
         }
         
         function closeModal(modalId) {
             document.getElementById(modalId).style.display = 'none';
+            document.body.style.overflow = 'auto';
         }
         
         // Закрытие модального окна при клике вне его области
         window.onclick = function(event) {
             if (event.target.classList.contains('modal')) {
                 event.target.style.display = 'none';
+                document.body.style.overflow = 'auto';
             }
         }
+        
+        // Обработка клавиши ESC
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const modals = document.querySelectorAll('.modal');
+                modals.forEach(modal => {
+                    modal.style.display = 'none';
+                });
+                document.body.style.overflow = 'auto';
+            }
+        });
     </script>
     
     <script>
-    // Функция для обновления времени
-    function updateTime() {
-        const now = new Date();
+        // Функция для обновления времени
+        function updateTime() {
+            const now = new Date();
+            
+            // Форматирование времени
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            
+            // Форматирование даты (русский формат)
+            const day = now.getDate();
+            const month = now.toLocaleString('ru-RU', { month: 'long' });
+            const year = now.getFullYear();
+            
+            // Обновление элементов
+            document.getElementById('currentTime').textContent = `${hours}:${minutes}:${seconds}`;
+            document.getElementById('currentDate').textContent = `${day} ${month} ${year}`;
+        }
         
-        // Форматирование времени
-        const hours = String(now.getHours()).padStart(2, '0');
-        const minutes = String(now.getMinutes()).padStart(2, '0');
-        const seconds = String(now.getSeconds()).padStart(2, '0');
-        
-        // Форматирование даты
-        const day = now.getDate();
-        const month = now.toLocaleString('ru-RU', { month: 'long' });
-        const year = now.getFullYear();
-        
-        // Обновление элементов
-        document.getElementById('currentTime').textContent = `${hours}:${minutes}:${seconds}`;
-        document.getElementById('currentDate').textContent = `${day} ${month} ${year}`;
-    }
-    
-    // Обновляем время сразу после загрузки страницы
-    document.addEventListener('DOMContentLoaded', function() {
+        // Запуск обновления времени
         updateTime();
-        // Запускаем обновление каждую секунду
         setInterval(updateTime, 1000);
-        
-        // Обновляем год в подвале
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
-    });
-</script>
-
+    </script>
 </body>
-  </html>
+</html>
