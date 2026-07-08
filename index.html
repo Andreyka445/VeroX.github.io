@@ -1,695 +1,383 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VeroX inc.</title>
-    <style>
-    /* Основные стили */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Andreyka445 — Android Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0b0e11;
+    --panel: #12161b;
+    --panel-2: #171c22;
+    --border: #232a31;
+    --text: #e6e8eb;
+    --muted: #7c8791;
+    --orange: #ff6b1a;
+    --orange-dim: #7a3a17;
+    --teal: #2dd4bf;
+    --teal-dim: #16413c;
+    --danger: #ff4d4d;
+  }
 
-body {
-    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-    color: #ffffff;
-    line-height: 1.6;
-    min-height: 100vh;
-}
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Space Grotesk', sans-serif;
+    overflow-x: hidden;
+  }
+  ::selection{ background: var(--orange); color: #0b0e11; }
 
-/* Шапка сайта */
-header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 25px 20px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-    position: relative;
-    overflow: hidden;
-}
+  .mono{ font-family: 'JetBrains Mono', monospace; }
 
-header::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, transparent 50%);
+  /* subtle scanline / grid atmosphere */
+  body::before{
+    content:"";
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 42px 42px;
     pointer-events: none;
-}
+    z-index: 0;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 90%);
+  }
 
-.logo {
-    margin-bottom: 10px;
-    position: relative;
-    z-index: 1;
-}
+  a{ color: inherit; }
 
-.logo h1 {
-    font-size: 2.8rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-    background: linear-gradient(45deg, #ffffff, #e2e8ff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
+  /* ---------- top status bar ---------- */
+  .statusbar{
+    position: sticky; top:0; z-index: 50;
+    display:flex; align-items:center; justify-content: space-between;
+    padding: 10px 24px;
+    background: rgba(11,14,17,0.85);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+    letter-spacing: 0.04em;
+  }
+  .statusbar .left{ display:flex; align-items:center; gap:10px; color: var(--muted); }
+  .statusbar .dot{ width:8px; height:8px; border-radius:50%; background: var(--teal); box-shadow: 0 0 8px var(--teal); animation: blink 2.4s infinite; }
+  @keyframes blink{ 0%,100%{opacity:1;} 50%{opacity:.35;} }
+  .statusbar nav{ display:flex; gap: 22px; }
+  .statusbar nav a{ text-decoration:none; color: var(--muted); transition: color .2s; }
+  .statusbar nav a:hover{ color: var(--orange); }
+  .statusbar .battery{ color: var(--muted); }
 
-.logo p {
-    font-size: 1.1rem;
-    opacity: 0.9;
-    color: #d8c3ff;
-}
+  section{ position: relative; z-index: 1; }
 
-/* Основной контент */
-.container {
-    max-width: 1200px;
-    margin: 40px auto;
-    padding: 0 20px;
-}
-
-.container h2 {
-    text-align: center;
-    margin-bottom: 30px;
-    font-size: 2.2rem;
-    background: linear-gradient(45deg, #a78bfa, #c4b5fd);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-/* Сетка карточек */
-.projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 30px;
-}
-
-/* Карточка проекта */
-.project-card {
-    background: linear-gradient(145deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.05));
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-    transition: all 0.3s ease;
-    cursor: pointer;
-}
-
-.project-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
-    border-color: rgba(167, 139, 250, 0.3);
-}
-
-.project-image {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-}
-
-.project-info {
-    padding: 25px;
-}
-
-.project-title {
-    font-size: 1.4rem;
-    margin-bottom: 12px;
-    color: #c4b5fd;
-    font-weight: 600;
-}
-
-.project-description {
-    color: #d1d5db;
-    font-size: 1rem;
-    margin-bottom: 15px;
-    line-height: 1.5;
-}
-
-.project-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 15px;
-}
-
-.tag {
-    background: linear-gradient(45deg, #7c3aed, #a78bfa);
-    color: white;
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: 500;
-}
-
-/* Модальное окно */
-.modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(15, 12, 41, 0.95);
-    z-index: 1000;
-    overflow-y: auto;
-}
-
-.modal-content {
-    background: linear-gradient(145deg, #1a1625, #2d2748);
-    margin: 5% auto;
-    width: 90%;
-    max-width: 800px;
-    border-radius: 15px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-    border: 1px solid rgba(167, 139, 250, 0.2);
-    animation: modalFade 0.4s;
-}
-
-@keyframes modalFade {
-    from {opacity: 0; transform: translateY(-60px) scale(0.9);}
-    to {opacity: 1; transform: translateY(0) scale(1);}
-}
-
-.modal-header {
-    padding: 25px;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.1));
-}
-
-.modal-title {
-    font-size: 1.7rem;
-    color: #c4b5fd;
-    font-weight: 600;
-}
-
-.close-btn {
-    font-size: 1.8rem;
-    cursor: pointer;
-    color: #a78bfa;
-    transition: color 0.2s;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.1);
-}
-
-.close-btn:hover {
-    color: #ffffff;
-    background: rgba(167, 139, 250, 0.3);
-}
-
-.modal-body {
-    padding: 25px;
-}
-
-.modal-section {
-    margin-bottom: 30px;
-}
-
-.modal-section h3 {
-    margin-bottom: 15px;
-    color: #a78bfa;
-    border-bottom: 2px solid rgba(167, 139, 250, 0.3);
-    padding-bottom: 8px;
-    font-size: 1.3rem;
-}
-
-.modal-section ul {
-    list-style: none;
-    padding-left: 0;
-}
-
-.modal-section li {
-    padding: 8px 0;
-    padding-left: 25px;
-    position: relative;
-    color: #d1d5db;
-}
-
-.modal-section li::before {
-    content: '▸';
-    position: absolute;
-    left: 0;
-    color: #a78bfa;
-    font-weight: bold;
-}
-
-.screenshots {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 15px;
-    margin-top: 15px;
-}
-
-.screenshot {
-    width: 100%;
+  /* ---------- hero: boot console ---------- */
+  .hero{
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 80px 24px 60px;
+  }
+  .console{
+    background: var(--panel);
+    border: 1px solid var(--border);
     border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    border: 1px solid rgba(255,255,255,0.1);
-    transition: transform 0.3s ease;
-    background: rgba(255,255,255,0.1);
-}
+    box-shadow: 0 0 0 1px rgba(0,0,0,.2), 0 30px 80px -30px rgba(0,0,0,.7);
+    overflow: hidden;
+  }
+  .console-head{
+    display:flex; align-items:center; gap:8px;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    background: var(--panel-2);
+  }
+  .console-head span{ width:10px; height:10px; border-radius:50%; background:#333; }
+  .console-head .title{ margin-left: 8px; font-size:11px; color: var(--muted); letter-spacing: .06em; }
+  .console-body{
+    padding: 22px 24px 28px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13.5px;
+    line-height: 1.65;
+    min-height: 300px;
+  }
+  .console-body .line{ white-space: pre-wrap; }
+  .ok{ color: var(--teal); }
+  .warn{ color: var(--orange); }
+  .dim{ color: var(--muted); }
+  .cursor{
+    display:inline-block; width:8px; height:15px; background: var(--orange);
+    vertical-align: middle; margin-left:4px;
+    animation: blink 1s steps(1) infinite;
+  }
 
-.screenshot:hover {
-    transform: scale(1.05);
-}
+  .hero-tag{
+    display:flex; flex-wrap: wrap; gap: 12px;
+    margin-top: 22px;
+  }
+  .badge{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    padding: 6px 10px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--muted);
+    background: var(--panel);
+  }
+  .badge b{ color: var(--teal); font-weight: 600; }
 
-.screenshot-placeholder {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 150px;
-    color: #9ca3af;
-    font-size: 0.9rem;
-    text-align: center;
-}
+  /* ---------- section heading style ---------- */
+  .sec-head{
+    max-width: 1000px; margin: 0 auto; padding: 0 24px;
+    display:flex; align-items: baseline; gap: 14px;
+    margin-bottom: 28px;
+  }
+  .sec-head .tag{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--orange);
+    border: 1px solid var(--orange-dim);
+    background: rgba(255,107,26,0.08);
+    padding: 3px 8px; border-radius: 4px;
+  }
+  .sec-head h2{ font-size: 22px; margin:0; font-weight: 600; letter-spacing: -0.01em; }
+  .sec-head .rule{ flex:1; height:1px; background: var(--border); }
 
-.download-btn {
-    display: inline-block;
-    background: linear-gradient(45deg, #7c3aed, #a78bfa);
-    color: white;
-    padding: 12px 25px;
-    border-radius: 8px;
+  .container{ max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+  .block-space{ padding: 70px 0; }
+  .block-space + .block-space{ border-top: 1px solid var(--border); }
+
+  /* ---------- TWRP-style menu (About / skills) ---------- */
+  .menu{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .menu-item{
+    background: var(--panel);
+    padding: 20px 22px;
+    transition: background .2s, transform .15s;
+    position: relative;
+  }
+  .menu-item:hover{ background: var(--panel-2); }
+  .menu-item::before{
+    content: "";
+    position:absolute; left:0; top:0; bottom:0; width: 3px;
+    background: var(--orange); transform: scaleY(0); transform-origin: top;
+    transition: transform .25s;
+  }
+  .menu-item:hover::before{ transform: scaleY(1); }
+  .menu-item .label{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--muted); letter-spacing:.06em; text-transform: uppercase;
+  }
+  .menu-item .value{ font-size: 17px; margin-top: 6px; font-weight: 500; }
+  .menu-item .sub{ margin-top: 6px; font-size: 13px; color: var(--muted); }
+
+  @media (max-width: 640px){ .menu{ grid-template-columns: 1fr; } }
+
+  /* ---------- tech stack chips ---------- */
+  .chips{ display:flex; flex-wrap: wrap; gap: 10px; }
+  .chip{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    padding: 9px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--panel);
+    color: var(--text);
+    display:flex; align-items:center; gap:8px;
+  }
+  .chip .sq{ width:7px; height:7px; background: var(--teal); border-radius:1px; }
+
+  /* ---------- project card ---------- */
+  .project{
+    display:flex; justify-content: space-between; align-items:center;
+    gap: 20px;
+    padding: 26px 26px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: linear-gradient(180deg, var(--panel), var(--panel-2));
     text-decoration: none;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
-    border: none;
-    cursor: pointer;
-    text-align: center;
-}
+    transition: border-color .2s, transform .2s;
+  }
+  .project:hover{ border-color: var(--orange-dim); transform: translateY(-2px); }
+  .project .pname{ font-size: 20px; font-weight: 600; }
+  .project .pdesc{ color: var(--muted); font-size: 13.5px; margin-top: 6px; }
+  .project .parrow{
+    font-family:'JetBrains Mono', monospace;
+    color: var(--orange);
+    font-size: 18px;
+    flex-shrink:0;
+  }
 
-.download-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(124, 58, 237, 0.5);
-    background: linear-gradient(45deg, #6d28d9, #8b5cf6);
-}
+  /* ---------- contacts ---------- */
+  .contacts{ display:grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+  .contact-card{
+    padding: 22px;
+    border:1px solid var(--border);
+    border-radius: 10px;
+    background: var(--panel);
+    text-decoration: none;
+    display:block;
+    transition: background .2s, border-color .2s;
+  }
+  .contact-card:hover{ background: var(--panel-2); border-color: var(--teal-dim); }
+  .contact-card .clabel{ font-family:'JetBrains Mono', monospace; font-size:11px; color: var(--muted); text-transform: uppercase; letter-spacing:.06em;}
+  .contact-card .cvalue{ margin-top: 8px; font-size: 15px; word-break: break-word; }
+  @media (max-width: 700px){ .contacts{ grid-template-columns: 1fr; } }
 
-/* Подвал */
-footer {
-    background: linear-gradient(135deg, #0f0c29, #1a1625);
-    color: #9ca3af;
-    text-align: center;
-    padding: 30px 20px;
-    margin-top: 60px;
-    border-top: 1px solid rgba(255,255,255,0.1);
-}
-
-/* Адаптивность */
-@media (max-width: 768px) {
-    .projects-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .modal-content {
-        width: 95%;
-        margin: 10% auto;
-    }
-    
-    .logo h1 {
-        font-size: 2.2rem;
-    }
-    
-    .container h2 {
-        font-size: 1.8rem;
-    }
-}
-
-.time-widget {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    text-align: right;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    padding: 15px 20px;
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    min-width: 180px;
-}
-
-.time {
-    font-size: 1.4rem;
-    font-weight: 600;
-    color: #ffffff;
-    margin-bottom: 5px;
-    font-family: 'Courier New', monospace;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-.date {
-    font-size: 0.9rem;
-    color: #d8c3ff;
-    opacity: 0.9;
-}
-
-/* Адаптивность для времени */
-@media (max-width: 768px) {
-    .time-widget {
-        position: relative;
-        top: auto;
-        right: auto;
-        text-align: center;
-        margin-top: 15px;
-        display: inline-block;
-    }
-    
-    header {
-        text-align: center;
-    }
-    
-    .logo {
-        margin-bottom: 15px;
-    }
-}
-    </style>
+  footer{
+    text-align:center;
+    padding: 40px 24px 60px;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+  }
+  footer .flash{ color: var(--orange); }
+</style>
 </head>
 <body>
-    <!-- Шапка сайта -->
-    <header>
-        <div class="logo">
-            <h1>VeroX inc.</h1>
-            <p>made by Andreyka445</p>
-        </div>
 
-        <!-- Виджет времени -->
-        <div class="time-widget">
-            <div class="time" id="currentTime">00:00:00</div>
-            <div class="date" id="currentDate">1 января 2025</div>
-        </div>
-    </header>
-    
-    <!-- Основной контент -->
-    <main class="container">
-        <h2>TECNO POVA 5 CUSTOM ROMS</h2>
-        
-        <!-- Сетка с карточками проектов -->
-        <div class="projects-grid">
-            <!-- Карточка проекта 1 -->
-            <div class="project-card" onclick="openModal('project1')">
-                <img src="https://avatars.githubusercontent.com/u/197353021?s=200&v=4" alt="RisingOS - Revived" class="project-image">
-                <div class="project-info">
-                    <h3 class="project-title">RisingOS - Revived</h3>
-                    <p class="project-description">Customizable, Beautiful, Refined #RiseUP #Rising_forever</p>
-                    <div class="project-tags">
-                        <span class="tag">#Rozen</span>
-                        <span class="tag">#Pova5</span>
-                        <span class="tag">#Rising_forever</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Карточка проекта 2 -->
-            <div class="project-card" onclick="openModal('project2')">
-                <img src="https://avatars.githubusercontent.com/u/140271839?s=200&v=4" alt="MistOS" class="project-image">
-                <div class="project-info">
-                    <h3 class="project-title">MistOS</h3>
-                    <p class="project-description">Cherry picked beautiful ROM based on AOSP and Pixel with good quality of features 💙</p>
-                    <div class="project-tags">
-                        <span class="tag">#Rozen</span>
-                        <span class="tag">#Pova5</span>
-                        <span class="tag">#MistOS</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Evolution X -->
-            <div class="project-card" onclick="openModal('project3')">
-                <img src="https://i.postimg.cc/s2JKv3W4/evoxlh7n.png" alt="Evolution X" class="project-image">
-                <div class="project-info">
-                    <h3 class="project-title">Evolution X</h3>
-                    <p class="project-description">Android ROM that aims to replicate the Google Pixel experience, with added customization. Based on the LineageOS Project.</p>
-                    <div class="project-tags">
-                        <span class="tag">#Pova5</span>
-                        <span class="tag">#Rozen</span>
-                        <span class="tag">#KeepEvolving</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="statusbar">
+    <div class="left">
+      <span class="dot"></span>
+      <span class="mono">DEVICE: andreyka445 · STATE: unlocked</span>
+    </div>
+    <nav>
+      <a href="#about">about</a>
+      <a href="#stack">stack</a>
+      <a href="#projects">projects</a>
+      <a href="#contacts">contacts</a>
+    </nav>
+    <div class="battery mono">100% ⚡</div>
+  </div>
 
-        <!-- 4 -->
-            <div class="project-card" onclick="openModal('project1')">
-                <img src="лого" alt="unreleaded rom" class="project-image">
-                <div class="project-info">
-                    <h3 class="project-title">123123</h3>
-                    <p class="project-description">1231231</p>
-                    <div class="project-tags">
-                        <span class="tag">#Rozen</span>
-                        <span class="tag">#Pova5</span>
-                        <span class="tag">123123</span>
-                    </div>
-                </div>
-            </div>
-    </main>
-    
-    <!-- Модальные окна -->
-    
-    <!-- RisingOS -->
-    <div id="project1" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">RisingOS Revived</h2>
-                <span class="close-btn" onclick="closeModal('project1')">&times;</span>
-            </div>
-            <div class="modal-body">
-                <div class="modal-section">
-                    <h3>About ROM</h3>
-                    <p>risingOS is a OpenSource Aftermarket Android Operating System that aims to bring unique and fresh user experience.</p>
-                </div>
-                
-                <div class="modal-section">
-                    <h3>Features</h3>
-                    <ul>
-                        <li>LineageOS based ROM</li>
-                        <li>More customization features</li>
-                        <li>GAPPS BUILD</li>
-                        <li>Mahiru 5.1 Kernel included</li>
-                        <li>Signed build</li>
-                    </ul>
-                </div>
-                
-                <div class="modal-section">
-                    <h3>Screenshots</h3>
-                    <div class="screenshots">
-                        <img src="https://i.postimg.cc/LXTs8ZCZ/Screenshot-20251104-225815-Nastrojki.png" alt="Screenshot 1" class="screenshot">
-                        <img src="https://i.postimg.cc/XJM5CFg0/Screenshot-20251104-225802-Pixel-Launcher.png" alt="Screenshot 2" class="screenshot">
-                        <img src="https://i.postimg.cc/MKXGzHyv/Screenshot-20251104-225824-Nastrojki.png" alt="Screenshot 3" class="screenshot">
-                    </div>
-                </div>
-                
-                <div class="modal-section">
-                    <h3>Download</h3>
-                    <p>Download the latest RisingOS - Revived for TECNO POVA 5:</p>
-                    <a href="https://pixeldrain.com/u/n1aWKvRe" class="download-btn">Download RisingOS - Revived</a>
-                </div>
-            </div>
+  <section class="hero">
+    <div class="console">
+      <div class="console-head">
+        <span style="background:#ff5f56"></span>
+        <span style="background:#ffbd2e"></span>
+        <span style="background:#27c93f"></span>
+        <span class="title">fastboot — andreyka445.img</span>
+      </div>
+      <div class="console-body" id="bootlog">
+        <div class="line dim">$ fastboot devices</div>
+        <div class="line">4A9X1B2C0917&#9;<span class="ok">fastboot</span></div>
+        <div class="line dim">$ fastboot flash boot andreyka445.img</div>
+        <div class="line">Sending 'boot' <span class="dim">(1 KB)</span> <span class="ok">OKAY</span></div>
+        <div class="line">Writing 'boot' <span class="ok">OKAY</span></div>
+        <div class="line" style="margin-top:14px;">
+          <span style="font-size:22px; font-weight:800;">Andreyka445</span>
         </div>
-    </div>
-    
-    <!-- MistOS -->
-    <div id="project2" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">MistOS</h2>
-                <span class="close-btn" onclick="closeModal('project2')">&times;</span>
-            </div>
-            <div class="modal-body">
-                <div class="modal-section">
-                    <h3>About ROM</h3>
-                    <p>Cherry picked beautiful ROM based on AOSP and Pixel with good quality of features 💙</p>
-                </div>
-                
-                <div class="modal-section">
-                    <h3>Features</h3>
-                    <ul>
-                        <li>LineageOS based ROM</li>
-                        <li>More customization features</li>
-                        <li>GAPPS BUILD</li>
-                        <li>Mahiru 5.1 Kernel included</li>
-                        <li>Signed build</li>
-                    </ul>
-                </div>
-                
-                <div class="modal-section">
-                    <h3>Screenshots</h3>
-                    <div class="screenshots">
-                        <img src="https://i.postimg.cc/FKBLThKs/IMG-20251105-104004-329.jpg" alt="Screenshot 1" class="screenshot">
-                        <img src="https://i.postimg.cc/rmVPNCK6/IMG-20251105-103959-782.jpg" alt="Screenshot 2" class="screenshot">
-                        <img src="https://i.postimg.cc/gj5tpC4L/IMG-20251105-104010-135.jpg" alt="Screenshot 3" class="screenshot">
-                    </div>
-                </div>
-                
-                <div class="modal-section">
-                    <h3>Download</h3>
-                    <p>Download MistOS:</p>
-                    <a href="https://pixeldrain.com/u/C8aA8TQ5" class="download-btn">Download MistOS</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Evolution X -->
-    <div id="project3" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">Evolution X</h2>
-                <span class="close-btn" onclick="closeModal('project3')">&times;</span>
-            </div>
-            <div class="modal-body">
-                <div class="modal-section">
-                    <h3>About ROM</h3>
-                    <p>Evolution X is a custom Android ROM that aims to replicate the Google Pixel experience, with added customization. Based on the LineageOS Project.<br>
-                    Pixel exclusive features, additional customization, frequent releases, community technical support.</p>
-                </div>
-                
-                <div class="modal-section">
-                    <h3>Features</h3>
-                    <ul>
-                        <li>LineageOS based ROM</li>
-                        <li>QPR 1 ROM</li>
-                        <li>Mahiru kernel 5.0.2 no root</li>
-                        <li>Signed build</li>
-                        <li>JDSP and Dolby included</li>
-                    </ul>
-                </div>
-                
-                <div class="modal-section">
-                    <h3>Screenshots</h3>
-                    <div class="screenshots">
-                        <img src="https://i.postimg.cc/V6bpLrMg/photo-2025-12-22-06-56-44.jpg" alt="Screenshot 1" class="screenshot">
-                        <img src="https://i.postimg.cc/63Gg52R0/photo-2025-12-22-06-56-46.jpg" alt="Screenshot 2" class="screenshot">
-                        <img src="https://i.postimg.cc/Px89rpZY/photo-2025-12-22-16-08-00.jpg" alt="Screenshot 3" class="screenshot">
-                    </div>
-                </div>
-                
-                <div class="modal-section">
-                    <h3>Download</h3>
-                    <p>Download Evolution X:</p>
-                    <a href="https://pixeldrain.com/u/bGcwEVau" class="download-btn" onclick="alert('Download Evolution X.'); ">Download</a>
-                </div>
-            </div>
-        </div>
+        <div class="line dim">Android developer from Russia 🗽</div>
+        <div class="line"><span class="warn">Millennium</span> &amp; <span class="warn">GrayRaven's</span> core member</div>
+        <div class="line dim">$ fastboot reboot<span class="cursor"></span></div>
+      </div>
     </div>
 
-    <!-- 4 -->
-    <div id="project1" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">4</h2>
-                <span class="close-btn" onclick="closeModal('project1')">&times;</span>
-            </div>
-            <div class="modal-body">
-                <div class="modal-section">
-                    <h3>About ROM</h3>
-                    <p>123123123</p>
-                </div>
-                
-                <div class="modal-section">
-                    <h3>Features</h3>
-                    <ul>
-                        <li>LineageOS based ROM</li>
-                        <li>More customization features</li>
-                        <li>GAPPS BUILD</li>
-                        <li>Mahiru 5.1 Kernel included</li>
-                        <li>Signed build</li>
-                    </ul>
-                </div>
-                
-                <div class="modal-section">
-                    <h3>Screenshots</h3>
-                    <div class="screenshots">
-                        <img src="12312313" alt="Screenshot 1" class="screenshot">
-                        <img src="123123" alt="Screenshot 2" class="screenshot">
-                        <img src="123123123" alt="Screenshot 3" class="screenshot">
-                    </div>
-                </div>
-                
-                <div class="modal-section">
-                    <h3>Download</h3>
-                    <p>123123123:</p>
-                    <a href="13123" class="download-btn">123123</a>
-                </div>
-            </div>
-        </div>
+    <div class="hero-tag">
+      <span class="badge">custom rom builder</span>
+      <span class="badge">TWRP / OFRP <b>maintainer</b></span>
+      <span class="badge">Magisk modules</span>
+      <span class="badge">Arch Linux <b>daily driver</b></span>
     </div>
-    
-    <!-- Подвал -->
-    <footer>
-        <p>&copy; <span id="currentYear">2025</span> VeroX inc. | made by Andreyka445</p>
-    </footer>
+  </section>
 
-    <script>
-        // Обновление года в подвале
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
-        
-        // Функции для модальных окон
-        function openModal(modalId) {
-            document.getElementById(modalId).style.display = 'block';
-            document.body.style.overflow = 'hidden';
-        }
-        
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-        
-        // Закрытие модального окна при клике вне его области
-        window.onclick = function(event) {
-            if (event.target.classList.contains('modal')) {
-                event.target.style.display = 'none';
-                document.body.style.overflow = 'auto';
-            }
-        }
-        
-        // Обработка клавиши ESC
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape') {
-                const modals = document.querySelectorAll('.modal');
-                modals.forEach(modal => {
-                    modal.style.display = 'none';
-                });
-                document.body.style.overflow = 'auto';
-            }
-        });
-    </script>
-    
-    <script>
-        // Функция для обновления времени
-        function updateTime() {
-            const now = new Date();
-            
-            // Форматирование времени
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            const seconds = String(now.getSeconds()).padStart(2, '0');
-            
-            // Форматирование даты (русский формат)
-            const day = now.getDate();
-            const month = now.toLocaleString('ru-RU', { month: 'long' });
-            const year = now.getFullYear();
-            
-            // Обновление элементов
-            document.getElementById('currentTime').textContent = `${hours}:${minutes}:${seconds}`;
-            document.getElementById('currentDate').textContent = `${day} ${month} ${year}`;
-        }
-        
-        // Запуск обновления времени
-        updateTime();
-        setInterval(updateTime, 1000);
-    </script>
+  <div class="block-space" id="about">
+    <div class="sec-head">
+      <span class="tag">01</span>
+      <h2>About / recovery</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="container">
+      <div class="menu">
+        <div class="menu-item">
+          <div class="label">Maintained device</div>
+          <div class="value">Nothing Phone (3a) Lite</div>
+          <div class="sub">custom builds, actively updated</div>
+        </div>
+        <div class="menu-item">
+          <div class="label">Maintained device</div>
+          <div class="value">TECNO POVA 5</div>
+          <div class="sub">custom builds, actively updated</div>
+        </div>
+        <div class="menu-item">
+          <div class="label">Skill</div>
+          <div class="value">Building Magisk Modules</div>
+          <div class="sub">root, systemless patches, tweaks</div>
+        </div>
+        <div class="menu-item">
+          <div class="label">Skill</div>
+          <div class="value">Building TWRP / OFRP</div>
+          <div class="sub">custom recovery for maintained devices</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block-space" id="stack">
+    <div class="sec-head">
+      <span class="tag">02</span>
+      <h2>Tech stack</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="container">
+      <div class="chips">
+        <span class="chip"><span class="sq"></span>Kotlin</span>
+        <span class="chip"><span class="sq"></span>Android</span>
+        <span class="chip"><span class="sq"></span>Custom Roms</span>
+        <span class="chip"><span class="sq"></span>AOSP</span>
+        <span class="chip"><span class="sq"></span>Arch Linux</span>
+        <span class="chip"><span class="sq"></span>ROM &amp; Porting</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="block-space" id="projects">
+    <div class="sec-head">
+      <span class="tag">03</span>
+      <h2>Projects</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="container">
+      <a class="project" href="https://t.me/Andreyka445real" target="_blank" rel="noopener">
+        <div>
+          <div class="pname">Black Pearl</div>
+          <div class="pdesc">Telegram · t.me/Andreyka445real</div>
+        </div>
+        <div class="parrow">→</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="block-space" id="contacts">
+    <div class="sec-head">
+      <span class="tag">04</span>
+      <h2>Contacts</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="container">
+      <div class="contacts">
+        <a class="contact-card" href="https://4pda.to/forum/index.php?showuser=11624748" target="_blank" rel="noopener">
+          <div class="clabel">4PDA</div>
+          <div class="cvalue">qms</div>
+        </a>
+        <a class="contact-card" href="mailto:seleznevandrey186@outlook.com">
+          <div class="clabel">Email</div>
+          <div class="cvalue">seleznevandrey186@outlook.com</div>
+        </a>
+        <a class="contact-card" href="https://t.me/crazy_joker67" target="_blank" rel="noopener">
+          <div class="clabel">Telegram</div>
+          <div class="cvalue">@crazy_joker67</div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <span class="flash">[ flashed successfully ]</span> — built from github.com/Andreyka445/Andreyka445
+  </footer>
+
 </body>
 </html>
